@@ -3,7 +3,7 @@
   <section>
     <div class="row at-row flex-center flex-middle">
       <div class="col-lg-24">
-        <img class="super-justice" src="/static/img/justice.png">
+        <a href="/"><img class="super-justice" :src="headerImage"></a>
         <h1 class="super-header">{{subtitle}}</h1>
       </div>
     </div>
@@ -51,7 +51,6 @@ export default {
         })
         .then(response => {
           this.heroes = response.data.payload
-          this.$Notify({ title: 'Heroes loaded', message: 'Retrieved list of Heroes', type: 'success' })
         })
         .catch(e => {
           this.errors.push(e)
