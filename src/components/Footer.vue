@@ -14,7 +14,7 @@
       <div class="col-lg-6">
       </div>
       <div class="col-lg-12 credits">
-        Intelligent Cloud Blackbelt Team
+        Intelligent Cloud GBB Team
       </div>
       <div class="col-lg-6">
       </div>
