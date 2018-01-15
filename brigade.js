@@ -72,7 +72,7 @@ function helmJobRunner (config, h, deployType) {
     h.tasks = [
         "cd /src/",
         "git clone https://github.com/chzbrgr71/rating-charts.git",
-        "cd rating-charts"
+        "cd rating-charts",
         `helm upgrade --install rating-web ./rating-web --set web.image=${config.get("webACRImage")} --set web.imageTag=${config.get("imageTag")}`
     ]
 }
