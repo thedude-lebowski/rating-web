@@ -9,13 +9,11 @@ events.on("push", (brigadeEvent, project) => {
     brigConfig.set("acrUsername", project.secrets.acrUsername)
     brigConfig.set("acrPassword", project.secrets.acrPassword)
     brigConfig.set("webImage", "chzbrgr71/rating-web")
-    brigConfig.set("apiImage", "chzbrgr71/rating-api")
     brigConfig.set("gitSHA", brigadeEvent.commit.substr(0,7))
     brigConfig.set("eventType", brigadeEvent.type)
     brigConfig.set("branch", getBranch(gitPayload))
     brigConfig.set("imageTag", `${brigConfig.get("branch")}-${brigConfig.get("gitSHA")}`)
     brigConfig.set("webACRImage", `${brigConfig.get("acrServer")}/${brigConfig.get("webImage")}`)
-    brigConfig.set("apiACRImage", `${brigConfig.get("acrServer")}/${brigConfig.get("apiImage")}`)
     
     console.log(`==> gitHub webook (${brigConfig.get("branch")}) with commit ID ${brigConfig.get("gitSHA")}`)
     
@@ -27,7 +25,6 @@ events.on("push", (brigadeEvent, project) => {
     
     // start pipeline
     console.log(`==> starting pipeline for docker image: ${brigConfig.get("webACRImage")}:${brigConfig.get("imageTag")}`)
-    console.log(`==> and pipeline for docker image: ${brigConfig.get("apiACRImage")}:${brigConfig.get("imageTag")}`)
     var pipeline = new Group()
     pipeline.add(docker)
     pipeline.add(helm)
@@ -60,15 +57,11 @@ function dockerJobRunner(config, d) {
     d.tasks = [
         "dockerd-entrypoint.sh &",
         "echo waiting && sleep 20",
-        "cd /src/rating-web/",
+        "cd /src/",
         `docker login ${config.get("acrServer")} -u ${config.get("acrUsername")} -p ${config.get("acrPassword")}`,
         `docker build --build-arg BUILD_DATE='1/1/2017 5:00' --build-arg IMAGE_TAG_REF=${config.get("imageTag")} --build-arg VCS_REF=${config.get("gitSHA")} -t ${config.get("webImage")} .`,
-        "cd ../rating-api/",
-        `docker build --build-arg BUILD_DATE='1/1/2017 5:00' --build-arg IMAGE_TAG_REF=${config.get("imageTag")} --build-arg VCS_REF=${config.get("gitSHA")} -t ${config.get("apiImage")} .`,
         `docker tag ${config.get("webImage")} ${config.get("webACRImage")}:${config.get("imageTag")}`,
-        `docker tag ${config.get("apiImage")} ${config.get("apiACRImage")}:${config.get("imageTag")}`,
         `docker push ${config.get("webACRImage")}:${config.get("imageTag")}`,
-        `docker push ${config.get("apiACRImage")}:${config.get("imageTag")}`,
         "killall dockerd"
     ]
 }
@@ -78,7 +71,9 @@ function helmJobRunner (config, h, deployType) {
     h.image = "lachlanevenson/k8s-helm:2.7.0"
     h.tasks = [
         "cd /src/",
-        `helm upgrade --install ratings ./charts/ratings --set api.image=${config.get("apiACRImage")} --set api.imageTag=${config.get("imageTag")} --set web.image=${config.get("webACRImage")} --set web.imageTag=${config.get("imageTag")}`
+        "git clone https://github.com/chzbrgr71/rating-charts.git",
+        "cd /rating-charts"
+        `helm upgrade --install ratings ./rating-web --set web.image=${config.get("webACRImage")} --set web.imageTag=${config.get("imageTag")}`
     ]
 }
 
