@@ -1,6 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const API = process.env.API
+
+var onError = function (err, req, res) {
+  console.log('Error with webpack proxy :', err);
+};
 
 module.exports = {
   entry: './src/main.js',
@@ -52,17 +57,6 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     }
   },
-  devServer: {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    host: '0.0.0.0',
-    port: 8080,
-    noInfo: true,
-    historyApiFallback: {
-      index: '/dist/'
-    },
-  },
   devtool: '#eval-source-map',
   plugins: [
     new HtmlWebpackPlugin({
@@ -75,7 +69,31 @@ module.exports = {
         IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TESTING")
       }
     })
-  ]
+  ],
+  devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    host: '0.0.0.0',
+    port: 8080,
+    before(app) {
+      app.use((req, res, next) => {
+        console.log(`Using middleware for ${req.url}`);
+        next();
+      });
+    },
+    noInfo: false,
+    historyApiFallback: {
+      index: '/dist/'
+    },
+    proxy: {
+      '/api': {
+        target: API
+      },
+      onError: onError,
+      logLevel: 'debug'
+    }
+  }
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -84,7 +102,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
-        API: JSON.stringify(process.env.API),
+        API: JSON.stringify(API),
         SITE_CODE: JSON.stringify(process.env.SITE_CODE || "JLA"),
         IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TESTING")
       }
