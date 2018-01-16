@@ -17,6 +17,7 @@ events.on("push", (brigadeEvent, project) => {
     brigConfig.set("webACRImage", `${brigConfig.get("acrServer")}/${brigConfig.get("webImage")}`)
     
     console.log(`==> gitHub webook (${brigConfig.get("branch")}) with commit ID ${brigConfig.get("gitSHA")}`)
+    console.log(`==> Date (${brigConfig.get("buildDate")}`)
     
     // setup brigade jobs
     var docker = new Job("job-runner-docker")
@@ -59,7 +60,6 @@ function dockerJobRunner(config, d) {
         "dockerd-entrypoint.sh &",
         "echo waiting && sleep 20",
         "cd /src/",
-        `echo ${config.get("buildDate")}`,
         `docker login ${config.get("acrServer")} -u ${config.get("acrUsername")} -p ${config.get("acrPassword")}`,
         `docker build --build-arg BUILD_DATE=${config.get("buildDate")} --build-arg IMAGE_TAG_REF=${config.get("imageTag")} --build-arg VCS_REF=${config.get("gitSHA")} -t ${config.get("webImage")} .`,
         `docker tag ${config.get("webImage")} ${config.get("webACRImage")}:${config.get("imageTag")}`,
