@@ -12,13 +12,13 @@ events.on("push", (brigadeEvent, project) => {
     brigConfig.set("gitSHA", brigadeEvent.commit.substr(0,7))
     brigConfig.set("eventType", brigadeEvent.type)
     brigConfig.set("branch", getBranch(gitPayload))
-    brigConfig.set("buildDate", Date())
+    brigConfig.set("buildDate", dateFormat(Date(), "mm/dd/yyyy h:MM:ss TT"))
     brigConfig.set("imageTag", `${brigConfig.get("branch")}-${brigConfig.get("gitSHA")}`)
     brigConfig.set("webACRImage", `${brigConfig.get("acrServer")}/${brigConfig.get("webImage")}`)
     
     console.log(`==> gitHub webook (${brigConfig.get("branch")}) with commit ID ${brigConfig.get("gitSHA")}`)
-    console.log(`==> Date (${brigConfig.get("buildDate")}`)
-    
+    console.log(`==> Date ${brigConfig.get("buildDate")}`)
+
     // setup brigade jobs
     var docker = new Job("job-runner-docker")
     var helm = new Job("job-runner-helm")
