@@ -69,7 +69,10 @@ module.exports = {
         API: JSON.stringify(process.env.API),
         SITE_CODE: JSON.stringify(process.env.SITE_CODE || "JLA"),
         IMAGE_BUILD_DATE: JSON.stringify(process.env.IMAGE_BUILD_DATE || "DATE OF TAG"),
-        IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TAG NAME")
+        IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TAG NAME"),
+        NODE_NAME: JSON.stringify(process.env.KUBE_NODE_NAME || "NODE NAME"),
+        POD_NAME: JSON.stringify(process.env.KUBE_POD_NAME || "POD NAME"),
+        POD_ID: JSON.stringify(process.env.KUBE_POD_ID || "POD IP"),
       }
     })
   ],
@@ -81,8 +84,11 @@ module.exports = {
     port: 8080,
     before(app) {
       app.use((req, res, next) => {
-        console.log(`ENV IMAGE_TAG: `, process.env.$IMAGE_TAG);
-        console.log(`ENV IMAGE_BUILD_DATE: `, process.env.$IMAGE_BUILD_DATE);
+        console.log(`ENV IMAGE_TAG: `, process.env.IMAGE_TAG);
+        console.log(`ENV IMAGE_BUILD_DATE: `, process.env.IMAGE_BUILD_DATE);
+        console.log(`ENV KUBE_NODE_NAME: `, process.env.KUBE_NODE_NAME);
+        console.log(`ENV KUBE_POD_NAME: `, process.env.KUBE_POD_NAME);
+        console.log(`ENV KUBE_POD_IP: `, process.env.KUBE_POD_IP);
         console.log(`ENV API: `, process.env.API);
         console.log(`Using middleware for ${req.url}`);
         next();

@@ -19,11 +19,29 @@
       <div class="col-lg-6">
       </div>
     </div>
+    <div class="row at-row flex-center flex-middle credits-tag">
+      <div class="col-lg-6">
+      </div>
+      <div class="col-lg-12">
+        <span class="credits">TAG:&nbsp;</span><span class="credits-black">{{imageTag}}</span>
+      </div>
+      <div class="col-lg-6">
+      </div>
+    </div>
     <div class="row at-row flex-center flex-middle">
       <div class="col-lg-6">
       </div>
-      <div class="col-lg-12 credits-small">
-        {{imageTag}}
+      <div class="col-lg-12">
+        <span class="credits">TAG DATE:&nbsp;</span><span class="credits-black">{{imageDate}}</span>
+      </div>
+      <div class="col-lg-6">
+      </div>
+    </div>
+        <div class="row at-row flex-center flex-middle">
+      <div class="col-lg-6">
+      </div>
+      <div class="col-lg-12">
+        <span class="credits">K8S INFO:&nbsp;&nbsp;</span><span class="credits-black">{{k8sNode}}&nbsp;:&nbsp;{{k8sPod}}&nbsp;:&nbsp;{{k8sIp}} </span>
       </div>
       <div class="col-lg-6">
       </div>
@@ -35,7 +53,11 @@
   export default {
     data() {
       return {
-        imageTag: process.env.IMAGE_TAG
+        imageTag: process.env.IMAGE_TAG,
+        imageDate: process.env.IMAGE_BUILD_DATE,
+        k8sNodeName: process.env.KUBE_NODE_NAME,
+        k8sPodName: process.env.KUBE_POD_NAME,
+        k8sPodIp: process.env.KUBE_POD_IP
       };
     }
   };

@@ -39,13 +39,16 @@ export default {
   .credits{
     font-family: 'Graduate', sans-serif;
     font-size: 12px;
+    color:#FFF;
   }
   
-  .credits-small{
-    padding-top: 40px;
+  .credits-black{
     font-family: 'Graduate', sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     color:#000;
+  }
+  .credits-tag{
+    padding-top: 40px;
   }
 
   .footspace{
