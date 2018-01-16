@@ -72,7 +72,7 @@ module.exports = {
         IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TAG NAME"),
         KUBE_NODE_NAME: JSON.stringify(process.env.KUBE_NODE_NAME || "NODE NAME"),
         KUBE_POD_NAME: JSON.stringify(process.env.KUBE_POD_NAME || "POD NAME"),
-        KUBE_POD_ID: JSON.stringify(process.env.KUBE_POD_ID || "POD IP"),
+        KUBE_POD_IP: JSON.stringify(process.env.KUBE_POD_IP || "POD IP"),
       }
     })
   ],
