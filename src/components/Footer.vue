@@ -41,7 +41,7 @@
       <div class="col-lg-6">
       </div>
       <div class="col-lg-12">
-        <span class="credits">K8S INFO:&nbsp;&nbsp;</span><span class="credits-black">{{k8sNode}}&nbsp;:&nbsp;{{k8sPod}}&nbsp;:&nbsp;{{k8sIp}} </span>
+        <span class="credits">K8S INFO:&nbsp;&nbsp;</span><span class="credits-black">{{k8sNodeName}}&nbsp;:&nbsp;{{k8sPodName}}&nbsp;:&nbsp;{{k8sPodIp}} </span>
       </div>
       <div class="col-lg-6">
       </div>
