@@ -12,7 +12,8 @@ events.on("push", (brigadeEvent, project) => {
     brigConfig.set("gitSHA", brigadeEvent.commit.substr(0,7))
     brigConfig.set("eventType", brigadeEvent.type)
     brigConfig.set("branch", getBranch(gitPayload))
-    brigConfig.set("buildDate", dateFormat(Date(), "mm/dd/yyyy h:MM:ss TT"))
+    var today = new Date()
+    brigConfig.set("buildDate", today.toISOString().substring(0, 10))
     brigConfig.set("imageTag", `${brigConfig.get("branch")}-${brigConfig.get("gitSHA")}`)
     brigConfig.set("webACRImage", `${brigConfig.get("acrServer")}/${brigConfig.get("webImage")}`)
     
