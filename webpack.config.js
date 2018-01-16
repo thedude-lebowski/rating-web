@@ -2,6 +2,8 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const API = process.env.API
+const TAG = process.env.$IMAGE_TAG
+const TAG_DATE = process.env.$IMAGE_BUILD_DATE
 
 var onError = function (err, req, res) {
   console.log('Error with webpack proxy :', err);
@@ -66,7 +68,8 @@ module.exports = {
       'process.env': {
         API: JSON.stringify(process.env.API),
         SITE_CODE: JSON.stringify(process.env.SITE_CODE || "JLA"),
-        IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TESTING")
+        IMAGE_BUILD_DATE: JSON.stringify(process.env.$IMAGE_BUILD_DATE || "DATE OF TAG"),
+        IMAGE_TAG: JSON.stringify(process.env.$IMAGE_TAG || "TAG NAME")
       }
     })
   ],
@@ -78,6 +81,9 @@ module.exports = {
     port: 8080,
     before(app) {
       app.use((req, res, next) => {
+        console.log(`ENV IMAGE_TAG: `, process.env.$IMAGE_TAG);
+        console.log(`ENV IMAGE_BUILD_DATE: `, process.env.$IMAGE_BUILD_DATE);
+        console.log(`ENV API: `, process.env.API);
         console.log(`Using middleware for ${req.url}`);
         next();
       });
@@ -104,7 +110,8 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"',
         API: JSON.stringify(API),
         SITE_CODE: JSON.stringify(process.env.SITE_CODE || "JLA"),
-        IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TESTING")
+        IMAGE_BUILD_DATE: JSON.stringify(process.env.$IMAGE_BUILD_DATE || "DATE OF TAG"),
+        IMAGE_TAG: JSON.stringify(process.env.$IMAGE_TAG || "TAG NAME")
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
