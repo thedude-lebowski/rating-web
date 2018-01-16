@@ -70,9 +70,9 @@ module.exports = {
         SITE_CODE: JSON.stringify(process.env.SITE_CODE || "JLA"),
         IMAGE_BUILD_DATE: JSON.stringify(process.env.IMAGE_BUILD_DATE || "DATE OF TAG"),
         IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TAG NAME"),
-        NODE_NAME: JSON.stringify(process.env.KUBE_NODE_NAME || "NODE NAME"),
-        POD_NAME: JSON.stringify(process.env.KUBE_POD_NAME || "POD NAME"),
-        POD_ID: JSON.stringify(process.env.KUBE_POD_ID || "POD IP"),
+        KUBE_NODE_NAME: JSON.stringify(process.env.KUBE_NODE_NAME || "NODE NAME"),
+        KUBE_POD_NAME: JSON.stringify(process.env.KUBE_POD_NAME || "POD NAME"),
+        KUBE_POD_IP: JSON.stringify(process.env.KUBE_POD_IP || "POD IP"),
       }
     })
   ],
