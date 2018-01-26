@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CompressionPlugin = require("compression-webpack-plugin")
 const API = process.env.API
 const TAG = process.env.IMAGE_TAG
 const TAG_DATE = process.env.IMAGE_BUILD_DATE
@@ -81,13 +80,6 @@ module.exports = {
       compress: {
         warnings: false
       }
-    }),
-    new CompressionPlugin({
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
-      test: /\.js$|\.css$|\.html$|\.png$|\.jpg$|\.ico$/,
-      threshold: 10240,
-      minRatio: 0.8
     })
   ],
   devServer: {

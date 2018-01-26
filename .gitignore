@@ -1,7 +1,6 @@
 **/.DS_Store
 secret.yaml
 brig-project.yaml
-package-lock.json
 draft.toml
 .draftignore
 **/charts
