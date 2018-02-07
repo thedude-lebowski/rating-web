@@ -7,7 +7,7 @@
     </div>
     <div class="row at-row flex-center flex-middle">
       <div class="col-lg-24">
-        <h1 class="super-header">{{subtitle}} (Joey is Superman)</h1>
+        <h1 class="super-header">{{subtitle}} (Joey is Son of Jorel)</h1>
       </div>
     </div>
     <div class="row at-row">
