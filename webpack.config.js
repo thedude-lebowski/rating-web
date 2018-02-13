@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CompressionPlugin = require("compression-webpack-plugin")
 const API = process.env.API
 const TAG = process.env.IMAGE_TAG
 const TAG_DATE = process.env.IMAGE_BUILD_DATE
@@ -80,6 +81,13 @@ module.exports = {
       compress: {
         warnings: false
       }
+    }),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$|\.png$|\.jpg$|\.ico$/,
+      threshold: 10240,
+      minRatio: 0.8
     })
   ],
   devServer: {
@@ -87,8 +95,6 @@ module.exports = {
       'Access-Control-Allow-Origin': '*',
     },
     host: '0.0.0.0',
-    public: 'heroes.brianredmond.io',
-    disableHostCheck: true,
     port: 8080,
     before(app) {
       app.use((req, res, next) => {
@@ -124,8 +130,7 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"',
         API: JSON.stringify(API),
         SITE_CODE: JSON.stringify(process.env.SITE_CODE || "JLA"),
-        IMAGE_BUILD_DATE: JSON.stringify(process.env.$IMAGE_BUILD_DATE || "DATE OF TAG"),
-        IMAGE_TAG: JSON.stringify(process.env.$IMAGE_TAG || "TAG NAME")
+        IMAGE_TAG: JSON.stringify(process.env.IMAGE_TAG || "TESTING")
       }
     }),
     new webpack.optimize.UglifyJsPlugin({

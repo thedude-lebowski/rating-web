@@ -14,7 +14,7 @@
       <div class="col-lg-6">
       </div>
       <div class="col-lg-12 credits">
-        Linux Containers on Azure Workshop
+        Azure Global Blackbelt Team
       </div>
       <div class="col-lg-6">
       </div>

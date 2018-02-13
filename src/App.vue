@@ -16,6 +16,8 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Bangers|Permanent+Marker|Graduate:400,700");
 
+
+// main css
 body {
   background-color: #999;
   --azure-blue: #0071c5;
@@ -89,7 +91,7 @@ html {
 .app {
   width: 85%;
   color: #fff;
-  margin-top: 1%;
+  margin-top: 30px;
   text-align: left;
 }
 
@@ -103,6 +105,7 @@ h3,
 h4 {
   text-align: left;
 }
+// 
 
 // .at-related
 .at-card {
@@ -200,6 +203,7 @@ h4 {
 .super-image {
   -webkit-filter: drop-shadow(3px 3px 3px #111);
   filter: drop-shadow(3px 3px 3px #111);
+  width: 100%;
 }
 
 .super-name {
