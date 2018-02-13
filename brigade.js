@@ -46,7 +46,7 @@ events.on("after", (event, proj) => {
     slack.env = {
       SLACK_WEBHOOK: proj.secrets.slackWebhook,
       SLACK_USERNAME: "brigade-demo",
-      SLACK_MESSAGE: "brigade pipeline finished successfully",
+      SLACK_MESSAGE: "brigade pipeline finished. heroes web updated",
       SLACK_COLOR: "#ff0000"
     }
 	slack.run()
@@ -76,7 +76,7 @@ function helmJobRunner (config, h, deployType) {
         "cd /src/",
         "git clone https://github.com/chzbrgr71/rating-charts.git",
         "cd rating-charts",
-        `helm upgrade --install rating-web ./rating-web --set web.image=${config.get("webACRImage")} --set web.imageTag=${config.get("imageTag")}`
+        `helm upgrade --install web ./rating-web --set web.image=${config.get("webACRImage")} --set web.imageTag=${config.get("imageTag")}`
     ]
 }
 
