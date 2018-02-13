@@ -95,6 +95,8 @@ module.exports = {
       'Access-Control-Allow-Origin': '*',
     },
     host: '0.0.0.0',
+    public: `heroes.brianredmond.io`,
+    disableHostCheck: true,
     port: 8080,
     before(app) {
       app.use((req, res, next) => {
