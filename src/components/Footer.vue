@@ -14,7 +14,7 @@
       <div class="col-lg-6">
       </div>
       <div class="col-lg-12 credits">
-        Azure GBB Workshop Pittsburgh
+        Azure GBB Workshop Tampa
       </div>
       <div class="col-lg-6">
       </div>
